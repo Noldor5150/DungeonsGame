@@ -15,6 +15,12 @@ namespace DungeonsGame
         public FormGame()
         {
             InitializeComponent();
+            Init();
+        }
+
+        private void Init()
+        {
+            MainBoard board = new MainBoard(panelGame);
         }
 
         private void aboutGameToolStripMenuItem_Click(object sender, EventArgs e)
@@ -25,6 +31,11 @@ namespace DungeonsGame
         private void aboutCreatorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Created by C# Wizzards Guild");
+        }
+
+        private void FormGame_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

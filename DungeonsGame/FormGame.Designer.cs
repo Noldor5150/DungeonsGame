@@ -52,7 +52,7 @@
             this.creditsToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1448, 33);
+            this.menuStrip.Size = new System.Drawing.Size(919, 33);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -69,18 +69,18 @@
             // newGameToolStripMenuItem
             // 
             this.newGameToolStripMenuItem.Name = "newGameToolStripMenuItem";
-            this.newGameToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.newGameToolStripMenuItem.Size = new System.Drawing.Size(200, 34);
             this.newGameToolStripMenuItem.Text = "New Game";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(267, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(197, 6);
             // 
             // quitGameToolStripMenuItem
             // 
             this.quitGameToolStripMenuItem.Name = "quitGameToolStripMenuItem";
-            this.quitGameToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.quitGameToolStripMenuItem.Size = new System.Drawing.Size(200, 34);
             this.quitGameToolStripMenuItem.Text = "Quit Game";
             // 
             // creditsToolStripMenuItem
@@ -96,19 +96,19 @@
             // aboutGameToolStripMenuItem
             // 
             this.aboutGameToolStripMenuItem.Name = "aboutGameToolStripMenuItem";
-            this.aboutGameToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.aboutGameToolStripMenuItem.Size = new System.Drawing.Size(227, 34);
             this.aboutGameToolStripMenuItem.Text = "About Game";
             this.aboutGameToolStripMenuItem.Click += new System.EventHandler(this.aboutGameToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(267, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(224, 6);
             // 
             // aboutCreatorToolStripMenuItem
             // 
             this.aboutCreatorToolStripMenuItem.Name = "aboutCreatorToolStripMenuItem";
-            this.aboutCreatorToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.aboutCreatorToolStripMenuItem.Size = new System.Drawing.Size(227, 34);
             this.aboutCreatorToolStripMenuItem.Text = "About Creator";
             this.aboutCreatorToolStripMenuItem.Click += new System.EventHandler(this.aboutCreatorToolStripMenuItem_Click);
             // 
@@ -119,7 +119,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelGame.Location = new System.Drawing.Point(0, 73);
             this.panelGame.Name = "panelGame";
-            this.panelGame.Size = new System.Drawing.Size(1448, 547);
+            this.panelGame.Size = new System.Drawing.Size(919, 547);
             this.panelGame.TabIndex = 1;
             // 
             // Score
@@ -136,7 +136,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1448, 619);
+            this.ClientSize = new System.Drawing.Size(919, 619);
             this.Controls.Add(this.Score);
             this.Controls.Add(this.panelGame);
             this.Controls.Add(this.menuStrip);
@@ -148,6 +148,7 @@
             this.Name = "FormGame";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Dungeons";
+            this.Load += new System.EventHandler(this.FormGame_Load);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
