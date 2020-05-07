@@ -69,6 +69,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -85,6 +86,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="3xhumed-Mega-Games-Pack-31-Dragon-Age-Origins-new-4.ico" />
+    <None Include="Resources\wall2.png" />
+    <None Include="Resources\Wall.png" />
+    <None Include="Resources\splash.png" />
+    <None Include="Resources\ring.png" />
+    <None Include="Resources\iceball.png" />
+    <None Include="Resources\ground.png" />
+    <None Include="Resources\GandalfBluel.png" />
+    <None Include="Resources\Gandalf.png" />
+    <None Include="Resources\dragonRed.png" />
+    <None Include="Resources\dragonGreen.png" />
+    <None Include="Resources\barrel.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

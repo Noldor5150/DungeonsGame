@@ -12,7 +12,10 @@ namespace DungeonsGame
     {
         empty,
         wall,
-        barrel
+        barrel,
+        iceball,
+        splash,
+        bonus
     }
     class MainBoard
     {
@@ -21,6 +24,7 @@ namespace DungeonsGame
         State[,] map;
         int sizeX = 17;
         int sizeY = 11;
+        static Random rand = new Random();  
         public MainBoard(Panel panel)
         {
             panelGame = panel;
@@ -48,25 +52,70 @@ namespace DungeonsGame
             {
                 for (int y = 0; y< sizeY; y++)
                 {
-                    CreatePlace(x, y, boxSize);
+                    if(x == 0 || y == 0 || x==sizeX-1 || y == sizeY-1)
+                    {
+                        CreatePlace(new Point(x, y), boxSize, State.wall);
+                    }
+                    else if (x % 2 == 0 && y % 2 == 0)
+                    {
+                        CreatePlace(new Point(x, y), boxSize, State.wall);
+                    }
+                    else if (rand.Next(3) == 0)
+                    {
+                        CreatePlace(new Point(x, y), boxSize, State.barrel);
+                    }
+                    else
+                    {
+                        CreatePlace(new Point(x, y), boxSize, State.empty);
+                    }
+
                 }
             }
 
         }
 
-        private void CreatePlace(int x, int y, int boxSize)
+        private void CreatePlace(Point point, int boxSize, State state)
         {
             PictureBox picture = new PictureBox();
 
-            picture.Location = new Point(x*(boxSize -1), y*(boxSize-1));
+            picture.Location = new Point(point.X*(boxSize -1), point.Y*(boxSize-1));
             picture.Size = new Size(boxSize, boxSize);
-            picture.BorderStyle = BorderStyle.FixedSingle;
+            /*picture.BorderStyle = BorderStyle.FixedSingle;*/
             picture.SizeMode = PictureBoxSizeMode.StretchImage;
 
-            mapPic[x, y] = picture;
+            mapPic[point.X, point.Y] = picture;
+            ChangeState(point, state);
             panelGame.Controls.Add(picture);
-            picture.BackColor = Color.Azure;
 
+           /* picture.BackColor = Color.Azure;*/
+
+        }
+
+        private void ChangeState(Point point, State newState)
+        {
+            switch (newState)
+            {
+                
+                case State.wall:
+                    mapPic[point.X, point.Y].Image = Properties.Resources.wall2;
+                    break;
+                case State.barrel:
+                    mapPic[point.X, point.Y].Image = Properties.Resources.barrel;
+                    break;
+                case State.iceball:
+                    mapPic[point.X, point.Y].Image = Properties.Resources.iceball;
+                    break;
+                case State.splash:
+                    mapPic[point.X, point.Y].Image = Properties.Resources.splash;
+                    break;
+                case State.bonus:
+                    mapPic[point.X, point.Y].Image = Properties.Resources.ring;
+                    break;
+                default:
+                    mapPic[point.X, point.Y].Image = Properties.Resources.ground;
+                    break;
+            }
+            map[point.X, point.Y] = newState;
         }
     }
 }
