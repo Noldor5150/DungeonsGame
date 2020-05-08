@@ -24,19 +24,12 @@ namespace DungeonsGame
         State[,] map;
         int sizeX = 17;
         int sizeY = 11;
-        static Random rand = new Random();  
+        static Random rand = new Random();
+        Hero hero;
         public MainBoard(Panel panel)
         {
             panelGame = panel;
-            InitStartMap();
-        }
-
-        private void InitStartMap()
-        {
-            mapPic = new PictureBox[sizeX, sizeY];
-            panelGame.Controls.Clear();
-            map = new State[sizeX, sizeY];
-
+            
             int boxSize;
 
             if ((panelGame.Width / sizeX) < (panelGame.Height / sizeY))
@@ -48,6 +41,17 @@ namespace DungeonsGame
             {
                 boxSize = panelGame.Height / sizeY;
             }
+            InitStartMap(boxSize);
+            InitStartHero(boxSize);
+        }
+
+        private void InitStartMap(int boxSize)
+        {
+            mapPic = new PictureBox[sizeX, sizeY];
+            panelGame.Controls.Clear();
+            map = new State[sizeX, sizeY];
+
+        
             for(int x = 0; x<sizeX; x++)
             {
                 for (int y = 0; y< sizeY; y++)
@@ -68,12 +72,12 @@ namespace DungeonsGame
                     {
                         CreatePlace(new Point(x, y), boxSize, State.empty);
                     }
-
                 }
             }
-
+            ChangeState(new Point(1, 1), State.empty);
+            ChangeState(new Point(1, 2), State.empty);
+            ChangeState(new Point(2, 1), State.empty);
         }
-
         private void CreatePlace(Point point, int boxSize, State state)
         {
             PictureBox picture = new PictureBox();
@@ -90,7 +94,6 @@ namespace DungeonsGame
            /* picture.BackColor = Color.Azure;*/
 
         }
-
         private void ChangeState(Point point, State newState)
         {
             switch (newState)
@@ -116,6 +119,22 @@ namespace DungeonsGame
                     break;
             }
             map[point.X, point.Y] = newState;
+        }
+        private void InitStartHero(int boxSize)
+        {
+            int x = 1;
+            int y = 1;
+            PictureBox picture = new PictureBox();
+            picture.Location = new Point(x * (boxSize) + 7, y * (boxSize) + 3);
+            picture.Size = new Size(boxSize - 14, boxSize - 6);
+            picture.Image = Properties.Resources.Gandalf;
+            picture.BackgroundImage = Properties.Resources.ground;
+            picture.BackgroundImageLayout = ImageLayout.Stretch;
+            picture.SizeMode = PictureBoxSizeMode.StretchImage;
+            panelGame.Controls.Add(picture);
+            picture.BringToFront();
+            hero = new Hero(picture);
+
         }
     }
 }
