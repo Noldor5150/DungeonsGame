@@ -55,6 +55,7 @@ namespace DungeonsGame
                 case Keys.Down:
                     board.MoveHero(Arrows.down);
                     break;
+
             }
         }
     }

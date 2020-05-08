@@ -64,33 +64,136 @@ namespace DungeonsGame
         private bool IsEmpty(ref int x, ref int y)
         {
             Point heroPoint = MyNowPoint();
-
-            if ( x > 0 && map[heroPoint.X + 1 , heroPoint.Y] == State.empty)
-            {
-                return true;
-            }
-            if (x < 0 && map[heroPoint.X - 1, heroPoint.Y] == State.empty)
-            {
-                return true;
-            }
-            if (y > 0 && map[heroPoint.X, heroPoint.Y + 1] == State.empty)
-            {
-                return true;
-            }
-            if (y < 0 && map[heroPoint.X, heroPoint.Y - 1] == State.empty)
-            {
-                return true;
-            }
-
             int heroRightSide = hero.Location.X + hero.Size.Width;
             int heroLeftSide = hero.Location.X;
-            int heroBootomSide = hero.Location.Y + hero.Size.Height;
+            int heroBottomSide = hero.Location.Y + hero.Size.Height;
             int heroTopSide = hero.Location.Y;
 
             int rightObstacleLeftSide = mapPic[heroPoint.X + 1, heroPoint.Y].Location.X;
             int leftObstacleRightSide = mapPic[heroPoint.X - 1, heroPoint.Y].Location.X + mapPic[heroPoint.X - 1, heroPoint.Y].Size.Width;
             int bottomObstacleTopSide = mapPic[heroPoint.X, heroPoint.Y + 1].Location.Y;
             int topObstacleBottomSide = mapPic[heroPoint.X, heroPoint.Y - 1].Location.Y + mapPic[heroPoint.X, heroPoint.Y - 1].Size.Height;
+
+            int rightTopObstacleBottomSide = mapPic[heroPoint.X + 1, heroPoint.Y - 1].Location.Y + mapPic[heroPoint.X + 1, heroPoint.Y - 1].Size.Height;
+            int rightBottomObstacleTopSide = mapPic[heroPoint.X + 1, heroPoint.Y + 1].Location.Y;
+            int leftTopObstacleBottomSide = mapPic[heroPoint.X - 1, heroPoint.Y - 1].Location.Y + mapPic[heroPoint.X - 1, heroPoint.Y - 1].Size.Height;
+            int leftBottomObstacleTopSide = mapPic[heroPoint.X - 1, heroPoint.Y + 1].Location.Y;
+
+
+            int rightTopObstacleLeftSide = mapPic[heroPoint.X + 1, heroPoint.Y - 1].Location.X;
+            int leftTopObstacleRightSide = mapPic[heroPoint.X - 1, heroPoint.Y - 1].Location.X + mapPic[heroPoint.X - 1, heroPoint.Y - 1].Size.Width;
+            int rightBottomObstacleLeftSide = mapPic[heroPoint.X + 1, heroPoint.Y + 1].Location.X;
+            int leftBottomObstacleRightSide = mapPic[heroPoint.X - 1, heroPoint.Y + 1].Location.X + mapPic[heroPoint.X - 1, heroPoint.Y + 1].Size.Width;
+
+            int offset = 3;
+
+            if ( x > 0 && map[heroPoint.X + 1 , heroPoint.Y] == State.empty)
+            {
+                if(heroTopSide < rightTopObstacleBottomSide)
+                {
+                    if (rightTopObstacleBottomSide - heroTopSide > offset)
+                    {
+                        y = offset;
+                    }
+                    else
+                    {
+                        y = rightTopObstacleBottomSide - heroTopSide;
+                    }
+                }
+                if (heroBottomSide > rightBottomObstacleTopSide)
+                {
+                    if (rightBottomObstacleTopSide - heroBottomSide < offset)
+                    {
+                        y = -offset;
+                    }
+
+                    else
+                    {
+                        y = rightBottomObstacleTopSide - heroBottomSide;
+                    }
+                }
+                return true;
+            }
+            if (x < 0 && map[heroPoint.X - 1, heroPoint.Y] == State.empty)
+            {
+                if (heroTopSide < leftTopObstacleBottomSide)
+                {
+                    if (leftTopObstacleBottomSide - heroTopSide > offset)
+                    {
+                        y = offset;
+                    }
+                    else
+                    {
+                        y = leftTopObstacleBottomSide - heroTopSide;
+                    }
+                    
+                }
+                if (heroBottomSide > leftBottomObstacleTopSide)
+                {
+                    if (leftBottomObstacleTopSide - heroBottomSide < -offset)
+                    {
+                        y = -offset;
+                    }
+                    else
+                    {
+                        y = leftBottomObstacleTopSide - heroBottomSide;
+                    }
+                }
+                return true;
+            }
+            if (y > 0 && map[heroPoint.X, heroPoint.Y + 1] == State.empty)
+            {
+                if (heroRightSide > rightBottomObstacleLeftSide)
+                {
+                    if (rightBottomObstacleLeftSide - heroRightSide < -offset)
+                    {
+                        x = -offset;
+                    }
+                    else
+                    {
+                        x = rightBottomObstacleLeftSide - heroRightSide;
+                    }
+                }
+                if (heroLeftSide < leftBottomObstacleRightSide)
+                {
+                    if (leftBottomObstacleRightSide - heroLeftSide > offset)
+                    {
+                        x = offset;
+                    }
+                    else
+                    {
+                        x = leftBottomObstacleRightSide - heroLeftSide;
+                    }
+                }
+                return true;
+            }
+            if (y < 0 && map[heroPoint.X, heroPoint.Y - 1] == State.empty)
+            {
+                if (heroRightSide > rightTopObstacleLeftSide)
+                {
+                    if (rightTopObstacleLeftSide-heroRightSide < -offset)
+                    {
+                        x = -offset;
+                    }
+                    else
+                    {
+                        x = rightTopObstacleLeftSide - heroRightSide;
+                    }
+                }
+                if (heroLeftSide < leftTopObstacleRightSide)
+                {
+                    if (leftTopObstacleRightSide - heroLeftSide > offset)
+                    {
+                        x = offset;
+                    }
+                    else
+                    {
+                        x = leftTopObstacleRightSide - heroLeftSide;
+                    }
+                }
+                return true;
+            }
+           
 
             if (x > 0 && heroRightSide + x > rightObstacleLeftSide)
             {
@@ -100,13 +203,13 @@ namespace DungeonsGame
             {
                 x = leftObstacleRightSide - heroLeftSide;
             }
-            if (y > 0 && heroBootomSide + y > bottomObstacleTopSide)
+            if (y > 0 && heroBottomSide + y > bottomObstacleTopSide)
             {
-                y = bottomObstacleTopSide - heroBootomSide;
+                y = bottomObstacleTopSide - heroBottomSide;
             }
             if (y < 0 && heroTopSide + y < topObstacleBottomSide)
             {
-                x = topObstacleBottomSide - heroTopSide;
+                y = topObstacleBottomSide - heroTopSide;
             }
 
 
@@ -116,7 +219,7 @@ namespace DungeonsGame
         {
             Point point = new Point();
             {
-                point.X = hero.Location.X + hero.Size.Width / 2;
+                point.X = hero.Location.X + hero.Size.Width  / 2;
                 point.Y = hero.Location.Y + hero.Size.Height / 2;
             }
 
@@ -127,15 +230,16 @@ namespace DungeonsGame
                     if
                         (
                         mapPic[x, y].Location.X < point.X &&
-                        mapPic[x, y].Location.Y < point.X &&
+                        mapPic[x, y].Location.Y < point.Y &&
                         mapPic[x, y].Location.X + mapPic[x, y].Size.Width > point.X &&
                         mapPic[x, y].Location.Y + mapPic[x, y].Size.Height > point.Y
                         )
                     {
-                        return new Point(x, y);
+                        return new Point(x, y); 
                     }
+                        
                 }
-            }
+            } 
             return point;
         }
     }
