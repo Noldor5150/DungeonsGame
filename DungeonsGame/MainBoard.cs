@@ -26,6 +26,7 @@ namespace DungeonsGame
         int sizeY = 11;
         static Random rand = new Random();
         Hero hero;
+        Enemy enemy;
         public MainBoard(Panel panel)
         {
             panelGame = panel;
@@ -34,7 +35,6 @@ namespace DungeonsGame
 
             if ((panelGame.Width / sizeX) < (panelGame.Height / sizeY))
             {
-
                 boxSize = panelGame.Width / sizeX;
             }
             else
@@ -43,6 +43,7 @@ namespace DungeonsGame
             }
             InitStartMap(boxSize);
             InitStartHero(boxSize);
+            InitStartEnemy(boxSize);
         }
 
         private void InitStartMap(int boxSize)
@@ -134,6 +135,23 @@ namespace DungeonsGame
             panelGame.Controls.Add(picture);
             picture.BringToFront();
             hero = new Hero(picture, mapPic, map);
+
+        }
+
+        private void InitStartEnemy(int boxSize)
+        {
+            int x = 15;
+            int y = 9;
+            PictureBox picture = new PictureBox();
+            picture.Location = new Point(x * (boxSize) - 8, y * (boxSize) - 6);
+            picture.Size = new Size(boxSize - 14, boxSize - 5);
+            picture.Image = Properties.Resources.dragonGreen;
+            picture.BackgroundImage = Properties.Resources.ground;
+            picture.BackgroundImageLayout = ImageLayout.Stretch;
+            picture.SizeMode = PictureBoxSizeMode.StretchImage;
+            panelGame.Controls.Add(picture);
+            picture.BringToFront();
+            enemy = new Enemy(picture);
 
         }
 
