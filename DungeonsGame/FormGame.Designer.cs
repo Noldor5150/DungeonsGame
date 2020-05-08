@@ -52,7 +52,7 @@
             this.creditsToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(919, 33);
+            this.menuStrip.Size = new System.Drawing.Size(919, 36);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -63,7 +63,7 @@
             this.toolStripSeparator1,
             this.quitGameToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(54, 29);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(54, 32);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // newGameToolStripMenuItem
@@ -90,7 +90,7 @@
             this.toolStripSeparator2,
             this.aboutCreatorToolStripMenuItem});
             this.creditsToolStripMenuItem.Name = "creditsToolStripMenuItem";
-            this.creditsToolStripMenuItem.Size = new System.Drawing.Size(83, 29);
+            this.creditsToolStripMenuItem.Size = new System.Drawing.Size(83, 32);
             this.creditsToolStripMenuItem.Text = "Credits";
             // 
             // aboutGameToolStripMenuItem
@@ -149,6 +149,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Dungeons";
             this.Load += new System.EventHandler(this.FormGame_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormGame_KeyDown);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.ResumeLayout(false);

@@ -133,8 +133,17 @@ namespace DungeonsGame
             picture.SizeMode = PictureBoxSizeMode.StretchImage;
             panelGame.Controls.Add(picture);
             picture.BringToFront();
-            hero = new Hero(picture);
+            hero = new Hero(picture, mapPic);
 
+        }
+
+        public void MoveHero(Arrows  arrow)
+        {
+            if(hero == null)
+            {
+                return;
+            }
+            hero.MoveHero(arrow);
         }
     }
 }

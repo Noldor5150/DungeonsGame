@@ -12,6 +12,7 @@ namespace DungeonsGame
 {
     public partial class FormGame : Form
     {
+        MainBoard board;
         public FormGame()
         {
             InitializeComponent();
@@ -20,7 +21,7 @@ namespace DungeonsGame
 
         private void Init()
         {
-            MainBoard board = new MainBoard(panelGame);
+          board  = new MainBoard(panelGame);
         }
 
         private void aboutGameToolStripMenuItem_Click(object sender, EventArgs e)
@@ -36,6 +37,25 @@ namespace DungeonsGame
         private void FormGame_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void FormGame_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Left:
+                    board.MoveHero(Arrows.left);
+                    break;
+                case Keys.Right:
+                    board.MoveHero(Arrows.right);
+                    break;
+                case Keys.Up:
+                    board.MoveHero(Arrows.up);
+                    break;
+                case Keys.Down:
+                    board.MoveHero(Arrows.down);
+                    break;
+            }
         }
     }
 }
