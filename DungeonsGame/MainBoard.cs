@@ -151,7 +151,7 @@ namespace DungeonsGame
             picture.SizeMode = PictureBoxSizeMode.StretchImage;
             panelGame.Controls.Add(picture);
             picture.BringToFront();
-            enemy = new Enemy(picture);
+            enemy = new Enemy(picture,mapPic,map);
 
         }
 
