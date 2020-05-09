@@ -225,6 +225,8 @@ namespace DungeonsGame
                 panelGame.Controls.Remove(deadEnemies[i].enemy);
                 deadEnemies[i] = null;
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void RenderSplash(Point trapPlace, Arrows arrow)
