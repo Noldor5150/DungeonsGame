@@ -43,7 +43,11 @@ namespace DungeonsGame
             }
             InitStartMap(boxSize);
             InitStartHero(boxSize);
-            InitStartEnemy(boxSize);
+            for (int i = 0; i < 6; i++)
+            {
+                InitStartEnemy(boxSize);
+            }
+            
         }
 
         private void InitStartMap(int boxSize)
@@ -142,6 +146,7 @@ namespace DungeonsGame
         {
             int x = 15;
             int y = 9;
+            FindEmptyPlace(out x, out y);
             PictureBox picture = new PictureBox();
             picture.Location = new Point(x * (boxSize) - 8, y * (boxSize) - 6);
             picture.Size = new Size(boxSize - 14, boxSize - 5);
@@ -154,6 +159,18 @@ namespace DungeonsGame
             enemy = new Enemy(picture,mapPic,map);
 
         }
+         
+        private void FindEmptyPlace(out int x, out int y)
+        {
+            int loop = 0;
+            do
+            {
+                x = rand.Next(map.GetLength(0)/2, map.GetLength(0));
+                y = rand.Next(1, map.GetLength(1));
+
+            } while (map[x,y] != State.empty && loop++ < 100);
+        }
+
 
         public void MoveHero(Arrows  arrow)
         {
@@ -162,6 +179,11 @@ namespace DungeonsGame
                 return;
             }
             hero.MoveHero(arrow);
+        }
+
+        public void CreateTrap()
+        {
+            ChangeState(hero.MyNowPoint(), State.iceball);
         }
     }
 }

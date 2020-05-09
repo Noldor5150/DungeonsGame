@@ -51,5 +51,11 @@ namespace DungeonsGame
                     break;
             }
         }
+
+        public Point MyNowPoint()
+        {
+            return movement.MyNowPoint();
+
+        }
     }
 }
