@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace DungeonsGame
 {
+    public delegate void delSplash( string str);
     enum State
     {
         empty,
@@ -183,7 +184,20 @@ namespace DungeonsGame
 
         public void CreateTrap()
         {
-            ChangeState(hero.MyNowPoint(), State.iceball);
+            Point heroPoint = hero.MyNowPoint();
+            if (map [heroPoint.X, heroPoint.Y] == State.iceball)       
+            {
+                return;
+            }
+            if (hero.CanCreateTrap(mapPic, Splash))
+            {
+                ChangeState(hero.MyNowPoint(), State.iceball);
+            }
+        }
+         
+        private void Splash(string str)
+        {
+            MessageBox.Show(str);
         }
     }
 }

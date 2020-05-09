@@ -20,12 +20,18 @@ namespace DungeonsGame
 
         PictureBox hero;
         int step;
-        
         Movement movement;
+        List<Trap> traps;
+        int quantityOfTraps;
+
+
         public Hero(PictureBox hero, PictureBox[,] mapPic, State[,] map)
         {
             this.hero = hero;
-           
+            quantityOfTraps = 3;
+            traps = new List<Trap>();
+
+
             step = 3;
             movement = new Movement(hero, mapPic, map);
         }
@@ -55,7 +61,17 @@ namespace DungeonsGame
         public Point MyNowPoint()
         {
             return movement.MyNowPoint();
+        }
 
+        public bool CanCreateTrap( PictureBox [,] mapPic, delSplash splash)
+        {
+            if (traps.Count >= quantityOfTraps)
+            {
+                return false;
+            }
+            Trap trap = new Trap(mapPic, MyNowPoint(),splash);
+            traps.Add(trap);
+            return true;
         }
     }
 }
