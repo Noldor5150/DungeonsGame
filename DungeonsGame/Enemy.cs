@@ -32,7 +32,7 @@ namespace DungeonsGame
             mileStone = new Point[map.GetLength(0) * map.GetLength(1)];
             movement = new Movement(picEnemy, mapPic, map);
             enemyPlace = movement.MyNowPoint();
-            destination = new Point(15, 7);
+            destination = enemyPlace;
             CreateTimer();
             timer.Enabled = true;
         }
@@ -40,41 +40,27 @@ namespace DungeonsGame
         private void CreateTimer()
         {
             timer = new Timer();
-            timer.Interval = 100;
+            timer.Interval = 10;
             timer.Tick += Timer_Tick;
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            if (enemyPlace == destination)
-            {
-                GetNewPlace();
-            }
-            if (mileStone[0].X == 0 && mileStone[0].Y == 0)
-            {
-                if (!FindPath())
-                {
-                    return;
-                }
-            }
-            if (pathStep > paths)
-            {
-                return;
-            }
-            if (mileStone[pathStep] == enemyPlace)
-            {
+            if (enemyPlace == destination) GetNewPlace();
+            if (mileStone[0].X == 0 & mileStone[0].Y == 0)
+                if (!FindPath()) return;
+            if (pathStep > paths) return;
+            if (mileStone[pathStep] == enemyPlace) 
                 pathStep++;
-            }
             else
-            {
-                MoveEnemy(destination);
-            }
+                MoveEnemy(mileStone[pathStep]);
+            
         }
 
         private void MoveEnemy(Point newPlace)
         {
-            int x = 0;
-            int y = 0;
+            int x ;
+            int y ;
             if (enemyPlace.X < newPlace.X)
             {
                 x = newPlace.X - enemyPlace.X > step ? step : newPlace.X - enemyPlace.X;
@@ -143,7 +129,7 @@ namespace DungeonsGame
             while (pathNumber >= 0)
             {
                 mileStone[pathNumber].X = sx;
-                mileStone[pathNumber].X = sy;
+                mileStone[pathNumber].Y = sy;
 
                 if (IsItLegitPath(sx + 1, sy, pathNumber))
                 {
@@ -181,6 +167,10 @@ namespace DungeonsGame
             {
                 return;
             }
+            if (map[x,y] != State.empty)
+            {
+                return;
+            }
             fmap[x, y] = pathNumber;
         }
 
@@ -205,7 +195,7 @@ namespace DungeonsGame
             {
                 destination.X = rand.Next(1, map.GetLength(0) - 1);
                 destination.Y = rand.Next(1, map.GetLength(1) - 1);
-            } while (!FindPath() && loop++<100);
+            } while (!FindPath() && loop++ < 100);
 
             if(loop >= 100)
             {
