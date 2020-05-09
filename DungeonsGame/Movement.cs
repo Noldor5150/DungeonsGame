@@ -14,7 +14,7 @@ namespace DungeonsGame
         PictureBox[,] mapPic;
         State[,] map;
 
-        public Movement( PictureBox unit, PictureBox [,] mapPic, State [,] map)
+        public Movement(PictureBox unit, PictureBox[,] mapPic, State[,] map)
         {
             this.unit = unit;
             this.mapPic = mapPic;
@@ -54,7 +54,7 @@ namespace DungeonsGame
 
             int offset = 3;
 
-            if (x > 0 && map[heroPoint.X + 1, heroPoint.Y] == State.empty)
+            if (x > 0 && (map[heroPoint.X + 1, heroPoint.Y] == State.empty) || (map[heroPoint.X + 1, heroPoint.Y] == State.splash))
             {
                 if (heroTopSide < rightTopObstacleBottomSide)
                 {
@@ -81,7 +81,7 @@ namespace DungeonsGame
                 }
                 return true;
             }
-            if (x < 0 && map[heroPoint.X - 1, heroPoint.Y] == State.empty)
+            if (x < 0 && (map[heroPoint.X - 1, heroPoint.Y] == State.empty || map[heroPoint.X - 1, heroPoint.Y] == State.splash))
             {
                 if (heroTopSide < leftTopObstacleBottomSide)
                 {
@@ -108,7 +108,7 @@ namespace DungeonsGame
                 }
                 return true;
             }
-            if (y > 0 && map[heroPoint.X, heroPoint.Y + 1] == State.empty)
+            if (y > 0 && (map[heroPoint.X, heroPoint.Y + 1] == State.empty || map[heroPoint.X, heroPoint.Y + 1] == State.splash))
             {
                 if (heroRightSide > rightBottomObstacleLeftSide)
                 {
@@ -134,7 +134,7 @@ namespace DungeonsGame
                 }
                 return true;
             }
-            if (y < 0 && map[heroPoint.X, heroPoint.Y - 1] == State.empty)
+            if (y < 0 && (map[heroPoint.X, heroPoint.Y - 1] == State.empty ||  map[heroPoint.X, heroPoint.Y - 1] == State.splash))
             {
                 if (heroRightSide > rightTopObstacleLeftSide)
                 {
@@ -161,7 +161,6 @@ namespace DungeonsGame
                 return true;
             }
 
-
             if (x > 0 && heroRightSide + x > rightObstacleLeftSide)
             {
                 x = rightObstacleLeftSide - heroRightSide;
@@ -178,8 +177,6 @@ namespace DungeonsGame
             {
                 y = topObstacleBottomSide - heroTopSide;
             }
-
-
             return true;
         }
         public Point MyNowPoint()

@@ -74,5 +74,10 @@ namespace DungeonsGame
             traps.Add(trap);
             return true;
         }
+
+        public void RemoveTrap(Trap trap)
+        {
+            traps.Remove(trap);
+        }
     }
 }

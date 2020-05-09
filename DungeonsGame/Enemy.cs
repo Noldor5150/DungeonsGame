@@ -10,7 +10,7 @@ namespace DungeonsGame
 {
     class Enemy
     {
-        PictureBox enemy;
+       public PictureBox enemy { get; private set; }
         Timer timer;
         Point destination;
         Point enemyPlace;
@@ -201,6 +201,11 @@ namespace DungeonsGame
             {
                 destination = enemyPlace;
             }
+        }
+
+        public Point MyNowPoint()
+        {
+            return movement.MyNowPoint();
         }
     }
 }

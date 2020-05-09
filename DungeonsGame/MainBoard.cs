@@ -27,11 +27,11 @@ namespace DungeonsGame
         int sizeY = 11;
         static Random rand = new Random();
         Hero hero;
-        Enemy enemy;
+        List <Enemy> enemies;
         public MainBoard(Panel panel)
         {
             panelGame = panel;
-            
+            enemies = new List<Enemy>();
             int boxSize;
 
             if ((panelGame.Width / sizeX) < (panelGame.Height / sizeY))
@@ -157,7 +157,7 @@ namespace DungeonsGame
             picture.SizeMode = PictureBoxSizeMode.StretchImage;
             panelGame.Controls.Add(picture);
             picture.BringToFront();
-            enemy = new Enemy(picture,mapPic,map);
+            enemies.Add ( new Enemy(picture,mapPic,map));
 
         }
          
@@ -198,72 +198,72 @@ namespace DungeonsGame
         private void Splash(Trap trap)
         {
             ChangeState(trap.trapPlace, State.splash);
-            bool isNotComplete  = true;
+            RenderSplash(trap.trapPlace, Arrows.left);
+            RenderSplash(trap.trapPlace, Arrows.right);
+            RenderSplash(trap.trapPlace, Arrows.up);
+            RenderSplash(trap.trapPlace, Arrows.down);
+            hero.traps.Remove(trap);
+            FreezeToDeath();
+
+        }
+
+        private void FreezeToDeath()
+        {
+
+            List<Enemy> deadEnemies = new List<Enemy>();
+            foreach (Enemy enemy in enemies)
+            {
+                Point enemyPoint = enemy.MyNowPoint();
+                if (map[enemyPoint.X, enemyPoint.Y] == State.splash )
+                {
+                    deadEnemies.Add(enemy);
+                }
+            }
+            for (int i = 0; i < deadEnemies.Count; i++)
+            {
+                enemies.Remove(deadEnemies[i]);
+                panelGame.Controls.Remove(deadEnemies[i].enemy);
+                deadEnemies[i] = null;
+            }
+        }
+
+        private void RenderSplash(Point trapPlace, Arrows arrow)
+        {
+            int sx = 0;
+            int sy = 0;
+
+            switch (arrow)
+            {
+                case Arrows.left:
+                    sx = -1;
+                    break;
+                case Arrows.right:
+                    sx = 1;
+                    break;
+                case Arrows.up:
+                    sy = -1;
+                    break;
+                case Arrows.down:
+                    sy = 1;
+                    break;
+                default:
+                    break;
+            }
+
+            bool isNotComplete = true;
             int x = 0;
             int y = 0;
             do
             {
-                if (++x> hero.splashLength)
+                x += sx;
+                y += sy;
+                if (Math.Abs(x)  > hero.splashLength || Math.Abs(y) > hero.splashLength)
                 {
                     break;
                 }
-                if (IsSplashActive(trap.trapPlace, -x, y))
+                if (IsSplashActive(trapPlace, x, y))
                 {
-                    ChangeState(new Point( trap.trapPlace.X - x, trap.trapPlace.Y + y), State.splash);
-                }
-                else
-                {
-                    isNotComplete = false;
-                }
-            } while (isNotComplete);
-            isNotComplete = true;
-             x = 0;
-             y = 0;
-            do
-            {
-                if (++x > hero.splashLength)
-                {
-                    break;
-                }
-                if (IsSplashActive(trap.trapPlace, x, y))
-                {
-                    ChangeState(new Point(trap.trapPlace.X + x, trap.trapPlace.Y + y), State.splash);
-                }
-                else
-                {
-                    isNotComplete = false;
-                }
-            } while (isNotComplete);
-            isNotComplete = true;
-            x = 0;
-            y = 0;
-            do
-            {
-                if (++y > hero.splashLength)
-                {
-                    break;
-                }
-                if (IsSplashActive(trap.trapPlace, x, -y))
-                {
-                    ChangeState(new Point(trap.trapPlace.X + x, trap.trapPlace.Y - y), State.splash);
-                }
-                else
-                {
-                    isNotComplete = false;
-                }
-            } while (isNotComplete);
-            isNotComplete = true;
-            x = 0;
-            y = 0;
-            do
-            {
-                if (++y > hero.splashLength)
-                {
-                    break;
-                }
-                if (IsSplashActive(trap.trapPlace, x, y))
-                {
-                    ChangeState(new Point(trap.trapPlace.X + x, trap.trapPlace.Y + y), State.splash);
+                    ChangeState(new Point(trapPlace.X + x, trapPlace.Y + y), State.splash);
                 }
                 else
                 {
