@@ -21,13 +21,15 @@ namespace DungeonsGame
         int paths;
         Point[] mileStone;
         int pathStep;
+        static Random rand = new Random();
 
 
         public Enemy(PictureBox picEnemy, PictureBox[,] mapPic, State[,] map)
         {
             enemy = picEnemy;
             this.map = map;
-            fmap = new int[map.GetLength(0), map.GetLength(1)];
+            fmap = new int[map.GetLength(0) , map.GetLength(1)];
+            mileStone = new Point[map.GetLength(0) * map.GetLength(1)];
             movement = new Movement(picEnemy, mapPic, map);
             enemyPlace = movement.MyNowPoint();
             destination = new Point(15, 7);
@@ -45,10 +47,28 @@ namespace DungeonsGame
         private void Timer_Tick(object sender, EventArgs e)
         {
             if (enemyPlace == destination)
-
+            {
+                GetNewPlace();
+            }
+            if (mileStone[0].X == 0 && mileStone[0].Y == 0)
+            {
+                if (!FindPath())
+                {
+                    return;
+                }
+            }
+            if (pathStep > paths)
+            {
                 return;
-            MoveEnemy(destination);
-
+            }
+            if (mileStone[pathStep] == enemyPlace)
+            {
+                pathStep++;
+            }
+            else
+            {
+                MoveEnemy(destination);
+            }
         }
 
         private void MoveEnemy(Point newPlace)
@@ -176,6 +196,21 @@ namespace DungeonsGame
                 return false;
             }
           return fmap [x,y] == pathNumber;
+        }
+
+        private void GetNewPlace()
+        {
+            int loop = 0;
+            do
+            {
+                destination.X = rand.Next(1, map.GetLength(0) - 1);
+                destination.Y = rand.Next(1, map.GetLength(1) - 1);
+            } while (!FindPath() && loop++<100);
+
+            if(loop >= 100)
+            {
+                destination = enemyPlace;
+            }
         }
     }
 }
