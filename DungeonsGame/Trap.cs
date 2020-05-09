@@ -8,12 +8,12 @@ using System.Drawing;
 
 namespace DungeonsGame
 {
-    class Trap
+   public  class Trap
     {
         Timer timer;
         int secondsLeft = 4;
         PictureBox[,] mapPic;
-        Point trapPlace;
+        public Point trapPlace { get; private set; }
         delSplash splash;
         
         public Trap(PictureBox[,] mapPic , Point trapPlace, delSplash splash )
@@ -39,8 +39,8 @@ namespace DungeonsGame
             {
                 
                 timer.Enabled = false;
-                string str = "boooooom";
-                splash(str);
+               
+                splash(this);
                 return;
             }
             WriteTime(--secondsLeft);
@@ -62,6 +62,11 @@ namespace DungeonsGame
                     new Font("Arial", 10),
                     Brushes.Red, point);
             }
+        }
+
+        public void TrapReaction()
+        {
+            secondsLeft = 0;
         }
     }
 }

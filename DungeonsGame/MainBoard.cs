@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DungeonsGame
-{
-    public delegate void delSplash( string str);
+{   
+    public delegate void delSplash(Trap trap);
     enum State
     {
         empty,
@@ -195,9 +195,106 @@ namespace DungeonsGame
             }
         }
          
-        private void Splash(string str)
+        private void Splash(Trap trap)
         {
-            MessageBox.Show(str);
+            ChangeState(trap.trapPlace, State.splash);
+            bool isNotComplete  = true;
+            int x = 0;
+            int y = 0;
+            do
+            {
+                if (++x> hero.splashLength)
+                {
+                    break;
+                }
+                if (IsSplashActive(trap.trapPlace, -x, y))
+                {
+                    ChangeState(new Point( trap.trapPlace.X - x, trap.trapPlace.Y + y), State.splash);
+                }
+                else
+                {
+                    isNotComplete = false;
+                }
+            } while (isNotComplete);
+            isNotComplete = true;
+             x = 0;
+             y = 0;
+            do
+            {
+                if (++x > hero.splashLength)
+                {
+                    break;
+                }
+                if (IsSplashActive(trap.trapPlace, x, y))
+                {
+                    ChangeState(new Point(trap.trapPlace.X + x, trap.trapPlace.Y + y), State.splash);
+                }
+                else
+                {
+                    isNotComplete = false;
+                }
+            } while (isNotComplete);
+            isNotComplete = true;
+            x = 0;
+            y = 0;
+            do
+            {
+                if (++y > hero.splashLength)
+                {
+                    break;
+                }
+                if (IsSplashActive(trap.trapPlace, x, -y))
+                {
+                    ChangeState(new Point(trap.trapPlace.X + x, trap.trapPlace.Y - y), State.splash);
+                }
+                else
+                {
+                    isNotComplete = false;
+                }
+            } while (isNotComplete);
+            isNotComplete = true;
+            x = 0;
+            y = 0;
+            do
+            {
+                if (++y > hero.splashLength)
+                {
+                    break;
+                }
+                if (IsSplashActive(trap.trapPlace, x, y))
+                {
+                    ChangeState(new Point(trap.trapPlace.X + x, trap.trapPlace.Y + y), State.splash);
+                }
+                else
+                {
+                    isNotComplete = false;
+                }
+            } while (isNotComplete);
+        }
+
+        private bool IsSplashActive(Point place, int x, int y)
+        {
+            switch (map[place.X + x, place.Y + y])
+            {
+                case State.empty:
+                    return true;
+                case State.wall:
+                    return false;
+                case State.barrel:
+                    ChangeState(new Point(place.X + x, place.Y + y), State.splash);
+                    return false;
+                case State.iceball:
+                    foreach (Trap trap in hero.traps)
+                    {
+                        if (trap.trapPlace == new Point(place.X + x, place.Y + y))
+                        {
+                            trap.TrapReaction();
+                        }
+                    }
+                    return false;        
+                default:
+                    return true;
+            }
         }
     }
 }

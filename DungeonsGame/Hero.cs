@@ -21,8 +21,9 @@ namespace DungeonsGame
         PictureBox hero;
         int step;
         Movement movement;
-        List<Trap> traps;
+       public List<Trap> traps { get; private set; }
         int quantityOfTraps;
+        public int splashLength { get; private set; }
 
 
         public Hero(PictureBox hero, PictureBox[,] mapPic, State[,] map)
@@ -30,7 +31,7 @@ namespace DungeonsGame
             this.hero = hero;
             quantityOfTraps = 3;
             traps = new List<Trap>();
-
+            splashLength = 3;
 
             step = 3;
             movement = new Movement(hero, mapPic, map);
