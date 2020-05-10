@@ -10,7 +10,8 @@ namespace DungeonsGame
 {
     class Enemy
     {
-       public PictureBox enemy { get; private set; }
+        int level = 1;
+        public PictureBox enemy { get; private set; }
         Timer timer;
         Point destination;
         Point enemyPlace;
@@ -22,13 +23,15 @@ namespace DungeonsGame
         Point[] mileStone;
         int pathStep;
         static Random rand = new Random();
+        Hero hero;
 
 
-        public Enemy(PictureBox picEnemy, PictureBox[,] mapPic, State[,] map)
+        public Enemy(PictureBox picEnemy, PictureBox[,] mapPic, State[,] map, Hero hero)
         {
             enemy = picEnemy;
             this.map = map;
-            fmap = new int[map.GetLength(0) , map.GetLength(1)];
+            this.hero = hero;
+            fmap = new int[map.GetLength(0), map.GetLength(1)];
             mileStone = new Point[map.GetLength(0) * map.GetLength(1)];
             movement = new Movement(picEnemy, mapPic, map);
             enemyPlace = movement.MyNowPoint();
@@ -50,17 +53,17 @@ namespace DungeonsGame
             if (mileStone[0].X == 0 & mileStone[0].Y == 0)
                 if (!FindPath()) return;
             if (pathStep > paths) return;
-            if (mileStone[pathStep] == enemyPlace) 
+            if (mileStone[pathStep] == enemyPlace)
                 pathStep++;
             else
                 MoveEnemy(mileStone[pathStep]);
-            
+
         }
 
         private void MoveEnemy(Point newPlace)
         {
-            int x ;
-            int y ;
+            int x;
+            int y;
             if (enemyPlace.X < newPlace.X)
             {
                 x = newPlace.X - enemyPlace.X > step ? step : newPlace.X - enemyPlace.X;
@@ -79,6 +82,10 @@ namespace DungeonsGame
             }
             movement.MoveByStep(x, y);
             enemyPlace = movement.MyNowPoint();
+            if (level >= 2 && map[newPlace.X, newPlace.Y] == State.iceball || map[newPlace.X, newPlace.Y] == State.splash)
+            {
+                GetNewPlace();
+            }
         }
 
         private bool FindPath()
@@ -190,6 +197,14 @@ namespace DungeonsGame
 
         private void GetNewPlace()
         {
+            if (level >= 3)
+            {
+                destination = hero.MyNowPoint();
+                if (FindPath())
+                {
+                    return;
+                }
+            }
             int loop = 0;
             do
             {
@@ -207,5 +222,11 @@ namespace DungeonsGame
         {
             return movement.MyNowPoint();
         }
+
+        public void SetLevel(int levelStep)
+        {
+            level = levelStep;
+        }
+
     }
 }

@@ -43,6 +43,10 @@
             this.Score = new System.Windows.Forms.Label();
             this.timerSplashClear = new System.Windows.Forms.Timer(this.components);
             this.timerGameOver = new System.Windows.Forms.Timer(this.components);
+            this.levelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,6 +68,7 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newGameToolStripMenuItem,
+            this.levelToolStripMenuItem,
             this.toolStripSeparator1,
             this.quitGameToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -102,19 +107,19 @@
             // aboutGameToolStripMenuItem
             // 
             this.aboutGameToolStripMenuItem.Name = "aboutGameToolStripMenuItem";
-            this.aboutGameToolStripMenuItem.Size = new System.Drawing.Size(227, 34);
+            this.aboutGameToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.aboutGameToolStripMenuItem.Text = "About Game";
             this.aboutGameToolStripMenuItem.Click += new System.EventHandler(this.aboutGameToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(224, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(267, 6);
             // 
             // aboutCreatorToolStripMenuItem
             // 
             this.aboutCreatorToolStripMenuItem.Name = "aboutCreatorToolStripMenuItem";
-            this.aboutCreatorToolStripMenuItem.Size = new System.Drawing.Size(227, 34);
+            this.aboutCreatorToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.aboutCreatorToolStripMenuItem.Text = "About Creator";
             this.aboutCreatorToolStripMenuItem.Click += new System.EventHandler(this.aboutCreatorToolStripMenuItem_Click);
             // 
@@ -146,6 +151,37 @@
             // timerGameOver
             // 
             this.timerGameOver.Tick += new System.EventHandler(this.timerGameOver_Tick);
+            // 
+            // levelToolStripMenuItem
+            // 
+            this.levelToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3,
+            this.toolStripMenuItem4});
+            this.levelToolStripMenuItem.Name = "levelToolStripMenuItem";
+            this.levelToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.levelToolStripMenuItem.Text = "Level";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(270, 34);
+            this.toolStripMenuItem2.Text = "Junior";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(270, 34);
+            this.toolStripMenuItem3.Text = "Middle";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(270, 34);
+            this.toolStripMenuItem4.Text = "Senior";
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
             // 
             // FormGame
             // 
@@ -187,6 +223,10 @@
         private System.Windows.Forms.Label Score;
         private System.Windows.Forms.Timer timerSplashClear;
         private System.Windows.Forms.Timer timerGameOver;
+        private System.Windows.Forms.ToolStripMenuItem levelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
     }
 }
 

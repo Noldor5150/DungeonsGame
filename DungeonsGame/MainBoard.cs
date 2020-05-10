@@ -29,15 +29,16 @@ namespace DungeonsGame
         Hero hero;
         List <Enemy> enemies;
         delClearSplash needToClear;
+        Label score;
 
-        public MainBoard(Panel panel, delClearSplash needToClear)
+        public MainBoard(Panel panel, delClearSplash needToClear, Label score)
         {
             panelGame = panel;
-            enemies = new List<Enemy>();
-            int boxSize;
             this.needToClear = needToClear;
-
-
+            enemies = new List<Enemy>();
+            this.score = score;
+           
+            int boxSize;
             if ((panelGame.Width / sizeX) < (panelGame.Height / sizeY))
             {
                 boxSize = panelGame.Width / sizeX;
@@ -143,7 +144,7 @@ namespace DungeonsGame
             picture.SizeMode = PictureBoxSizeMode.StretchImage;
             panelGame.Controls.Add(picture);
             picture.BringToFront();
-            hero = new Hero(picture, mapPic, map);
+            hero = new Hero(picture, mapPic, map, score);
 
         }
 
@@ -161,7 +162,7 @@ namespace DungeonsGame
             picture.SizeMode = PictureBoxSizeMode.StretchImage;
             panelGame.Controls.Add(picture);
             picture.BringToFront();
-            enemies.Add ( new Enemy(picture,mapPic,map));
+            enemies.Add ( new Enemy(picture, mapPic, map, hero));
 
         }
          
@@ -337,6 +338,14 @@ namespace DungeonsGame
                 }
             }
             return false;
+        }
+
+        public void SetEnemyLevel(int levelStep)
+        {
+            foreach (Enemy enemy in enemies)
+            {
+                enemy.SetLevel(levelStep);
+            }
         }
 
     }

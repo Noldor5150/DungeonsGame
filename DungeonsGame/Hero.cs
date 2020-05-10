@@ -18,23 +18,27 @@ namespace DungeonsGame
     class Hero
     {
 
-        PictureBox hero;
-        int step;
-        Movement movement;
+       PictureBox hero;
+       int step;
+       Movement movement;
        public List<Trap> traps { get; private set; }
-        int quantityOfTraps;
-        public int splashLength { get; private set; }
+       int quantityOfTraps;
+       public int splashLength { get; private set; }
+
+       Label score;
+       
 
 
-        public Hero(PictureBox hero, PictureBox[,] mapPic, State[,] map)
+        public Hero(PictureBox hero, PictureBox[,] mapPic, State[,] map, Label score)
         {
+            this.score = score;
             this.hero = hero;
             quantityOfTraps = 3;
             traps = new List<Trap>();
             splashLength = 3;
-
             step = 3;
             movement = new Movement(hero, mapPic, map);
+            ChangeScore();
         }
 
 
@@ -78,6 +82,15 @@ namespace DungeonsGame
         public void RemoveTrap(Trap trap)
         {
             traps.Remove(trap);
+        }
+
+        private void ChangeScore()
+        {
+            if (score == null)
+            {
+                return;
+            }
+            score.Text = "Speed: " + step + ", trap QNT: " + quantityOfTraps + ", trap Power: " + splashLength;
         }
     }
 }

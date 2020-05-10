@@ -14,6 +14,7 @@ namespace DungeonsGame
     public partial class FormGame : Form
     {
         MainBoard board;
+        int level = 1;
         public FormGame()
         {
             InitializeComponent();
@@ -22,7 +23,8 @@ namespace DungeonsGame
 
         private void NewGame()
         {
-          board  = new MainBoard(panelGame, StartClearSplash);
+          board  = new MainBoard(panelGame, StartClearSplash, Score);
+          ChangeLevel(level);
           timerGameOver.Enabled = true;
         }
 
@@ -98,6 +100,29 @@ namespace DungeonsGame
         private void quitGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+     
+
+        private void ChangeLevel(int levelStep)
+        {
+            level = levelStep;
+            board.SetEnemyLevel(level);
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            ChangeLevel(1);
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            ChangeLevel(2);
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            ChangeLevel(3);
         }
     }
 }
