@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormGame));
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,6 +41,7 @@
             this.aboutCreatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelGame = new System.Windows.Forms.Panel();
             this.Score = new System.Windows.Forms.Label();
+            this.timerSplashClear = new System.Windows.Forms.Timer(this.components);
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,7 +54,8 @@
             this.creditsToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(919, 36);
+            this.menuStrip.Padding = new System.Windows.Forms.Padding(6, 2, 0, 2);
+            this.menuStrip.Size = new System.Drawing.Size(1300, 33);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -63,7 +66,7 @@
             this.toolStripSeparator1,
             this.quitGameToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(54, 32);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(54, 29);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // newGameToolStripMenuItem
@@ -90,7 +93,7 @@
             this.toolStripSeparator2,
             this.aboutCreatorToolStripMenuItem});
             this.creditsToolStripMenuItem.Name = "creditsToolStripMenuItem";
-            this.creditsToolStripMenuItem.Size = new System.Drawing.Size(83, 32);
+            this.creditsToolStripMenuItem.Size = new System.Drawing.Size(83, 29);
             this.creditsToolStripMenuItem.Text = "Credits";
             // 
             // aboutGameToolStripMenuItem
@@ -119,7 +122,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelGame.Location = new System.Drawing.Point(0, 73);
             this.panelGame.Name = "panelGame";
-            this.panelGame.Size = new System.Drawing.Size(919, 547);
+            this.panelGame.Size = new System.Drawing.Size(1308, 694);
             this.panelGame.TabIndex = 1;
             // 
             // Score
@@ -132,11 +135,16 @@
             this.Score.Text = "New Game";
             this.Score.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // timerSplashClear
+            // 
+            this.timerSplashClear.Interval = 1000;
+            this.timerSplashClear.Tick += new System.EventHandler(this.timerSplashClear_Tick);
+            // 
             // FormGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(919, 619);
+            this.ClientSize = new System.Drawing.Size(1300, 715);
             this.Controls.Add(this.Score);
             this.Controls.Add(this.panelGame);
             this.Controls.Add(this.menuStrip);
@@ -170,6 +178,7 @@
         private System.Windows.Forms.ToolStripMenuItem aboutCreatorToolStripMenuItem;
         private System.Windows.Forms.Panel panelGame;
         private System.Windows.Forms.Label Score;
+        private System.Windows.Forms.Timer timerSplashClear;
     }
 }
 

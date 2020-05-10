@@ -28,11 +28,15 @@ namespace DungeonsGame
         static Random rand = new Random();
         Hero hero;
         List <Enemy> enemies;
-        public MainBoard(Panel panel)
+        delClearSplash needToClear;
+
+        public MainBoard(Panel panel, delClearSplash needToClear)
         {
             panelGame = panel;
             enemies = new List<Enemy>();
             int boxSize;
+            this.needToClear = needToClear;
+
 
             if ((panelGame.Width / sizeX) < (panelGame.Height / sizeY))
             {
@@ -204,6 +208,7 @@ namespace DungeonsGame
             RenderSplash(trap.trapPlace, Arrows.down);
             hero.traps.Remove(trap);
             FreezeToDeath();
+            needToClear();
 
         }
 
@@ -296,6 +301,20 @@ namespace DungeonsGame
                     return false;        
                 default:
                     return true;
+            }
+        }
+
+        public void ClearSplash()
+        {
+            for (int x = 0;  x < map.GetLength(0);  x++)
+            {
+                for (int y= 0; y < map.GetLength(1); y++)
+                {
+                    if (map[x,y] == State.splash)
+                    {
+                        ChangeState(new Point(x, y), State.empty);
+                    }
+                }
             }
         }
     }

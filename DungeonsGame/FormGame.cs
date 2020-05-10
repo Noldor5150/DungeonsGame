@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace DungeonsGame
 {
+    public delegate void delClearSplash();
     public partial class FormGame : Form
     {
         MainBoard board;
@@ -21,7 +22,7 @@ namespace DungeonsGame
 
         private void Init()
         {
-          board  = new MainBoard(panelGame);
+          board  = new MainBoard(panelGame, StartClearSplash);
         }
 
         private void aboutGameToolStripMenuItem_Click(object sender, EventArgs e)
@@ -59,6 +60,17 @@ namespace DungeonsGame
                     board.CreateTrap();
                     break;
             }
+        }
+
+        private void timerSplashClear_Tick(object sender, EventArgs e)
+        {
+            board.ClearSplash();
+            timerSplashClear.Enabled = false;
+
+        }
+        private void StartClearSplash()
+        {
+            timerSplashClear.Enabled = true;
         }
     }
 }
