@@ -17,12 +17,13 @@ namespace DungeonsGame
         public FormGame()
         {
             InitializeComponent();
-            Init();
+            NewGame();
         }
 
-        private void Init()
+        private void NewGame()
         {
           board  = new MainBoard(panelGame, StartClearSplash);
+          timerGameOver.Enabled = true;
         }
 
         private void aboutGameToolStripMenuItem_Click(object sender, EventArgs e)
@@ -42,23 +43,25 @@ namespace DungeonsGame
 
         private void FormGame_KeyDown(object sender, KeyEventArgs e)
         {
-            switch (e.KeyCode)
-            {
-                case Keys.Left:
-                    board.MoveHero(Arrows.left);
-                    break;
-                case Keys.Right:
-                    board.MoveHero(Arrows.right);
-                    break;
-                case Keys.Up:
-                    board.MoveHero(Arrows.up);
-                    break;
-                case Keys.Down:
-                    board.MoveHero(Arrows.down);
-                    break;
-                case Keys.Space:
-                    board.CreateTrap();
-                    break;
+            if (timerGameOver.Enabled) {
+                switch (e.KeyCode)
+                {
+                    case Keys.Left:
+                        board.MoveHero(Arrows.left);
+                        break;
+                    case Keys.Right:
+                        board.MoveHero(Arrows.right);
+                        break;
+                    case Keys.Up:
+                        board.MoveHero(Arrows.up);
+                        break;
+                    case Keys.Down:
+                        board.MoveHero(Arrows.down);
+                        break;
+                    case Keys.Space:
+                        board.CreateTrap();
+                        break;
+                }
             }
         }
 
@@ -71,6 +74,30 @@ namespace DungeonsGame
         private void StartClearSplash()
         {
             timerSplashClear.Enabled = true;
+        }
+
+        private void timerGameOver_Tick(object sender, EventArgs e)
+        {
+            if (board.GameOver())
+            {
+                timerGameOver.Enabled = false;
+                DialogResult result = MessageBox.Show("Want some more?", "Game Over", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if ( result == System.Windows.Forms.DialogResult.Yes)
+                {
+                    NewGame();
+                }
+            }
+        }
+
+        private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NewGame();
+        }
+
+        private void quitGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

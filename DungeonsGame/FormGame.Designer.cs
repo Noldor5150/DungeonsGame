@@ -42,6 +42,7 @@
             this.panelGame = new System.Windows.Forms.Panel();
             this.Score = new System.Windows.Forms.Label();
             this.timerSplashClear = new System.Windows.Forms.Timer(this.components);
+            this.timerGameOver = new System.Windows.Forms.Timer(this.components);
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,19 +73,21 @@
             // newGameToolStripMenuItem
             // 
             this.newGameToolStripMenuItem.Name = "newGameToolStripMenuItem";
-            this.newGameToolStripMenuItem.Size = new System.Drawing.Size(200, 34);
+            this.newGameToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.newGameToolStripMenuItem.Text = "New Game";
+            this.newGameToolStripMenuItem.Click += new System.EventHandler(this.newGameToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(197, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(267, 6);
             // 
             // quitGameToolStripMenuItem
             // 
             this.quitGameToolStripMenuItem.Name = "quitGameToolStripMenuItem";
-            this.quitGameToolStripMenuItem.Size = new System.Drawing.Size(200, 34);
+            this.quitGameToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.quitGameToolStripMenuItem.Text = "Quit Game";
+            this.quitGameToolStripMenuItem.Click += new System.EventHandler(this.quitGameToolStripMenuItem_Click);
             // 
             // creditsToolStripMenuItem
             // 
@@ -140,6 +143,10 @@
             this.timerSplashClear.Interval = 1000;
             this.timerSplashClear.Tick += new System.EventHandler(this.timerSplashClear_Tick);
             // 
+            // timerGameOver
+            // 
+            this.timerGameOver.Tick += new System.EventHandler(this.timerGameOver_Tick);
+            // 
             // FormGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -179,6 +186,7 @@
         private System.Windows.Forms.Panel panelGame;
         private System.Windows.Forms.Label Score;
         private System.Windows.Forms.Timer timerSplashClear;
+        private System.Windows.Forms.Timer timerGameOver;
     }
 }
 

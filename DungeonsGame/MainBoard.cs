@@ -317,5 +317,27 @@ namespace DungeonsGame
                 }
             }
         }
+
+        public bool GameOver()
+        {
+            Point heroPoint = hero.MyNowPoint();
+            if ( map[heroPoint.X, heroPoint.Y] == State.splash)
+            {
+                return true;
+            }
+            if (enemies.Count == 0)
+            {
+                return true;
+            }
+            foreach (Enemy enemy in enemies)
+            {
+                if(heroPoint == enemy.MyNowPoint())
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
 }
