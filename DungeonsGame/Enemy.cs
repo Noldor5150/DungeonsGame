@@ -33,7 +33,7 @@ namespace DungeonsGame
             this.hero = hero;
             fmap = new int[map.GetLength(0), map.GetLength(1)];
             mileStone = new Point[map.GetLength(0) * map.GetLength(1)];
-            movement = new Movement(picEnemy, mapPic, map);
+            movement = new Movement(picEnemy, mapPic, map, AddBonus);
             enemyPlace = movement.MyNowPoint();
             destination = enemyPlace;
             CreateTimer();
@@ -226,6 +226,11 @@ namespace DungeonsGame
         public void SetLevel(int levelStep)
         {
             level = levelStep;
+        }
+
+        private void AddBonus(PrizeList prize)
+        {
+
         }
 
     }

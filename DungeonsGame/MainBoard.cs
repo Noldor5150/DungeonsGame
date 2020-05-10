@@ -53,7 +53,7 @@ namespace DungeonsGame
             {
                 InitStartEnemy(boxSize);
             }
-            
+            Bonus.Prepare();
         }
 
         private void InitStartMap(int boxSize)
@@ -289,7 +289,14 @@ namespace DungeonsGame
                 case State.wall:
                     return false;
                 case State.barrel:
-                    ChangeState(new Point(place.X + x, place.Y + y), State.splash);
+                    if (rand.Next(0,3) == 0)
+                    {
+                        ChangeState(new Point(place.X + x, place.Y + y), State.bonus);
+                    }
+                    else
+                    {
+                        ChangeState(new Point(place.X + x, place.Y + y), State.splash);
+                    }
                     return false;
                 case State.iceball:
                     foreach (Trap trap in hero.traps)

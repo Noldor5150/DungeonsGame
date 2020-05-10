@@ -13,18 +13,27 @@ namespace DungeonsGame
         PictureBox unit;
         PictureBox[,] mapPic;
         State[,] map;
+        delAddBonus addBonus;
 
-        public Movement(PictureBox unit, PictureBox[,] mapPic, State[,] map)
+        public Movement(PictureBox unit, PictureBox[,] mapPic, State[,] map, delAddBonus addBonus)
         {
             this.unit = unit;
             this.mapPic = mapPic;
             this.map = map;
+            this.addBonus = addBonus;
         }
         public void MoveByStep(int x, int y)
         {
             if (IsEmpty(ref x, ref y))
             {
                 unit.Location = new Point(unit.Location.X + x, unit.Location.Y + y);
+                Point myPlace = MyNowPoint();
+                if (map [myPlace.X ,myPlace.Y] == State.bonus)
+                {
+                    addBonus(Bonus.GetBonus());
+                    map[myPlace.X, myPlace.Y] = State.empty;
+                    mapPic[myPlace.X, myPlace.Y].Image = Properties.Resources.ground;
+                }
             }
         }
 
@@ -46,7 +55,6 @@ namespace DungeonsGame
             int leftTopObstacleBottomSide = mapPic[heroPoint.X - 1, heroPoint.Y - 1].Location.Y + mapPic[heroPoint.X - 1, heroPoint.Y - 1].Size.Height;
             int leftBottomObstacleTopSide = mapPic[heroPoint.X - 1, heroPoint.Y + 1].Location.Y;
 
-
             int rightTopObstacleLeftSide = mapPic[heroPoint.X + 1, heroPoint.Y - 1].Location.X;
             int leftTopObstacleRightSide = mapPic[heroPoint.X - 1, heroPoint.Y - 1].Location.X + mapPic[heroPoint.X - 1, heroPoint.Y - 1].Size.Width;
             int rightBottomObstacleLeftSide = mapPic[heroPoint.X + 1, heroPoint.Y + 1].Location.X;
@@ -54,7 +62,12 @@ namespace DungeonsGame
 
             int offset = 3;
 
-            if (x > 0 && (map[heroPoint.X + 1, heroPoint.Y] == State.empty) || (map[heroPoint.X + 1, heroPoint.Y] == State.splash))
+            if (
+                x > 0 && 
+                (map[heroPoint.X + 1, heroPoint.Y] == State.empty ||
+                map[heroPoint.X + 1, heroPoint.Y] == State.splash ||
+                map[heroPoint.X + 1, heroPoint.Y] == State.bonus)
+                )
             {
                 if (heroTopSide < rightTopObstacleBottomSide)
                 {
@@ -73,7 +86,6 @@ namespace DungeonsGame
                     {
                         y = -offset;
                     }
-
                     else
                     {
                         y = rightBottomObstacleTopSide - heroBottomSide;
@@ -81,7 +93,12 @@ namespace DungeonsGame
                 }
                 return true;
             }
-            if (x < 0 && (map[heroPoint.X - 1, heroPoint.Y] == State.empty || map[heroPoint.X - 1, heroPoint.Y] == State.splash))
+            if (
+                x < 0 &&
+                (map[heroPoint.X - 1, heroPoint.Y] == State.empty || 
+                map[heroPoint.X - 1, heroPoint.Y] == State.splash ||
+                map[heroPoint.X - 1, heroPoint.Y] == State.bonus)  
+                )
             {
                 if (heroTopSide < leftTopObstacleBottomSide)
                 {
@@ -93,7 +110,6 @@ namespace DungeonsGame
                     {
                         y = leftTopObstacleBottomSide - heroTopSide;
                     }
-
                 }
                 if (heroBottomSide > leftBottomObstacleTopSide)
                 {
@@ -108,7 +124,12 @@ namespace DungeonsGame
                 }
                 return true;
             }
-            if (y > 0 && (map[heroPoint.X, heroPoint.Y + 1] == State.empty || map[heroPoint.X, heroPoint.Y + 1] == State.splash))
+            if (
+                y > 0 && 
+                (map[heroPoint.X, heroPoint.Y + 1] == State.empty ||
+                map[heroPoint.X, heroPoint.Y + 1] == State.splash||
+                map[heroPoint.X, heroPoint.Y + 1] == State.bonus)
+                )
             {
                 if (heroRightSide > rightBottomObstacleLeftSide)
                 {
@@ -134,7 +155,12 @@ namespace DungeonsGame
                 }
                 return true;
             }
-            if (y < 0 && (map[heroPoint.X, heroPoint.Y - 1] == State.empty ||  map[heroPoint.X, heroPoint.Y - 1] == State.splash))
+            if (
+                y < 0 &&
+                (map[heroPoint.X, heroPoint.Y - 1] == State.empty ||  
+                map[heroPoint.X, heroPoint.Y - 1] == State.splash ||
+                map[heroPoint.X, heroPoint.Y - 1] == State.bonus)
+                )
             {
                 if (heroRightSide > rightTopObstacleLeftSide)
                 {
@@ -160,7 +186,6 @@ namespace DungeonsGame
                 }
                 return true;
             }
-
             if (x > 0 && heroRightSide + x > rightObstacleLeftSide)
             {
                 x = rightObstacleLeftSide - heroRightSide;
