@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DungeonsGame
@@ -25,7 +21,6 @@ namespace DungeonsGame
         static Random rand = new Random();
         Hero hero;
 
-
         public Enemy(PictureBox picEnemy, PictureBox[,] mapPic, State[,] map, Hero hero)
         {
             enemy = picEnemy;
@@ -39,14 +34,12 @@ namespace DungeonsGame
             CreateTimer();
             timer.Enabled = true;
         }
-
         private void CreateTimer()
         {
             timer = new Timer();
             timer.Interval = 10;
             timer.Tick += Timer_Tick;
         }
-
         private void Timer_Tick(object sender, EventArgs e)
         {
             if (enemyPlace == destination) GetNewPlace();
@@ -59,7 +52,6 @@ namespace DungeonsGame
                 MoveEnemy(mileStone[pathStep]);
 
         }
-
         private void MoveEnemy(Point newPlace)
         {
             int x;
@@ -87,7 +79,6 @@ namespace DungeonsGame
                 GetNewPlace();
             }
         }
-
         private bool FindPath()
         {
 
@@ -159,7 +150,6 @@ namespace DungeonsGame
             pathStep = 0;
             return true;
         }
-
         private void MarkPath(int x, int y, int pathNumber)
         {
             if (x < 0 || x >= map.GetLength(0))
@@ -180,7 +170,6 @@ namespace DungeonsGame
             }
             fmap[x, y] = pathNumber;
         }
-
         private bool IsItLegitPath(int x, int y, int pathNumber)
         {
             if (x < 0 || x >= map.GetLength(0))
@@ -194,7 +183,6 @@ namespace DungeonsGame
             }
           return fmap [x,y] == pathNumber;
         }
-
         private void GetNewPlace()
         {
             if (level >= 3)
@@ -217,17 +205,14 @@ namespace DungeonsGame
                 destination = enemyPlace;
             }
         }
-
         public Point MyNowPoint()
         {
             return movement.MyNowPoint();
         }
-
         public void SetLevel(int levelStep)
         {
             level = levelStep;
         }
-
         private void AddBonus(PrizeList prize)
         {
 

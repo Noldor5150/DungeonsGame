@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace DungeonsGame
@@ -36,7 +31,6 @@ namespace DungeonsGame
                 }
             }
         }
-
         private bool IsEmpty(ref int x, ref int y)
         {
             Point heroPoint = MyNowPoint();

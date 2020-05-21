@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DungeonsGame
@@ -55,7 +52,6 @@ namespace DungeonsGame
             }
             Bonus.Prepare();
         }
-
         private void InitStartMap(int boxSize)
         {
             mapPic = new PictureBox[sizeX, sizeY];
@@ -147,7 +143,6 @@ namespace DungeonsGame
             hero = new Hero(picture, mapPic, map, score);
 
         }
-
         private void InitStartEnemy(int boxSize)
         {
             int x = 15;
@@ -165,7 +160,6 @@ namespace DungeonsGame
             enemies.Add ( new Enemy(picture, mapPic, map, hero));
 
         }
-         
         private void FindEmptyPlace(out int x, out int y)
         {
             int loop = 0;
@@ -176,8 +170,6 @@ namespace DungeonsGame
 
             } while (map[x,y] != State.empty && loop++ < 100);
         }
-
-
         public void MoveHero(Arrows  arrow)
         {
             if(hero == null)
@@ -186,7 +178,6 @@ namespace DungeonsGame
             }
             hero.MoveHero(arrow);
         }
-
         public void CreateTrap()
         {
             Point heroPoint = hero.MyNowPoint();
@@ -199,7 +190,6 @@ namespace DungeonsGame
                 ChangeState(hero.MyNowPoint(), State.iceball);
             }
         }
-         
         private void Splash(Trap trap)
         {
             ChangeState(trap.trapPlace, State.splash);
@@ -212,16 +202,16 @@ namespace DungeonsGame
             needToClear();
 
         }
-
         private void FreezeToDeath()
         {
-
+            
             List<Enemy> deadEnemies = new List<Enemy>();
             foreach (Enemy enemy in enemies)
             {
                 Point enemyPoint = enemy.MyNowPoint();
                 if (map[enemyPoint.X, enemyPoint.Y] == State.splash )
                 {
+                    /*panelGame.Controls.Remove(enemy.enemy);*/
                     deadEnemies.Add(enemy);
                 }
             }
@@ -234,7 +224,6 @@ namespace DungeonsGame
             GC.Collect();
             GC.WaitForPendingFinalizers();
         }
-
         private void RenderSplash(Point trapPlace, Arrows arrow)
         {
             int sx = 0;
@@ -279,7 +268,6 @@ namespace DungeonsGame
                 }
             } while (isNotComplete);
         }
-
         private bool IsSplashActive(Point place, int x, int y)
         {
             switch (map[place.X + x, place.Y + y])
@@ -311,7 +299,6 @@ namespace DungeonsGame
                     return true;
             }
         }
-
         public void ClearSplash()
         {
             for (int x = 0;  x < map.GetLength(0);  x++)
@@ -325,7 +312,6 @@ namespace DungeonsGame
                 }
             }
         }
-
         public bool GameOver()
         {
             Point heroPoint = hero.MyNowPoint();
@@ -346,7 +332,6 @@ namespace DungeonsGame
             }
             return false;
         }
-
         public void SetEnemyLevel(int levelStep)
         {
             foreach (Enemy enemy in enemies)

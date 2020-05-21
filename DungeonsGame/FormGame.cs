@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DungeonsGame
@@ -20,29 +13,24 @@ namespace DungeonsGame
             InitializeComponent();
             NewGame();
         }
-
         private void NewGame()
         {
           board  = new MainBoard(panelGame, StartClearSplash, Score);
           ChangeLevel(level);
           timerGameOver.Enabled = true;
         }
-
         private void aboutGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Bledifull bledifull Game!!!");
         }
-
         private void aboutCreatorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Created by C# Wizzards Guild");
         }
-
         private void FormGame_Load(object sender, EventArgs e)
         {
 
         }
-
         private void FormGame_KeyDown(object sender, KeyEventArgs e)
         {
             if (timerGameOver.Enabled) {
@@ -66,7 +54,6 @@ namespace DungeonsGame
                 }
             }
         }
-
         private void timerSplashClear_Tick(object sender, EventArgs e)
         {
             board.ClearSplash();
@@ -77,7 +64,6 @@ namespace DungeonsGame
         {
             timerSplashClear.Enabled = true;
         }
-
         private void timerGameOver_Tick(object sender, EventArgs e)
         {
             if (board.GameOver())
@@ -91,35 +77,27 @@ namespace DungeonsGame
                 }
             }
         }
-
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NewGame();
         }
-
         private void quitGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
-     
-
         private void ChangeLevel(int levelStep)
         {
             level = levelStep;
             board.SetEnemyLevel(level);
         }
-
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             ChangeLevel(1);
         }
-
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
             ChangeLevel(2);
         }
-
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
         {
             ChangeLevel(3);

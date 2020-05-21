@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace DungeonsGame
 {
@@ -24,13 +22,11 @@ namespace DungeonsGame
         static Random rand = new Random();
         static int bonusQuantity = 7;
 
-
         public static void Prepare()
         {
             PreparePercentage();
             PrepareBonus();
         }
-
         private static void PreparePercentage()
         {
             percent = new Dictionary<PrizeList, int>(); 
@@ -40,7 +36,6 @@ namespace DungeonsGame
             percent.Add(PrizeList.splashRangeDecrease, 20);
          
         }
-
         private static void PrepareBonus()
         {
             bonusList = new List<PrizeList>();
@@ -65,7 +60,6 @@ namespace DungeonsGame
                 }
             } while (bonusList.Count < bonusQuantity);
         }
-
         public static PrizeList GetBonus()
         {
             if ( bonusList.Count == 0)

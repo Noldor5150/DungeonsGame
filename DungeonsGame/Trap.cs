@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Threading.Tasks;
 using System.Drawing;
 
 namespace DungeonsGame
@@ -25,14 +21,12 @@ namespace DungeonsGame
             CreateTimer();
             timer.Enabled = true;
         }
-
         private void CreateTimer()
         {
             timer = new Timer();
             timer.Interval = 1000;
             timer.Tick += Timer_Tick;
         }
-
         private void Timer_Tick(object sender, EventArgs e)
         {
             if(secondsLeft <= 0)
@@ -45,7 +39,6 @@ namespace DungeonsGame
             }
             WriteTime(--secondsLeft);
         }
-
         private void WriteTime(int sec)
 
         {
@@ -63,7 +56,6 @@ namespace DungeonsGame
                     Brushes.Red, point);
             }
         }
-
         public void TrapReaction()
         {
             secondsLeft = 0;
